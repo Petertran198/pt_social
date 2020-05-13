@@ -26,4 +26,14 @@ class EpicenterController < ApplicationController
     current_user.save 
     redirect_to show_user_path(id: params[:id])
   end
+
+
+  def tag_tweets
+    @tag = Tag.find(params[:tag_id])
+  end
+
+
+
+
+
 end

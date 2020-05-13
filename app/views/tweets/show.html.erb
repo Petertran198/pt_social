@@ -2,7 +2,8 @@
 
 <p>
   <strong>Message:</strong>
-  <%= @tweet.message %>
+  <%# #.html_safe is how we specifiy that the html we input is safe to output to the screen  %>
+  <%= @tweet.message.html_safe %>
 </p>
 
 <p>

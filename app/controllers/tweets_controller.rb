@@ -24,8 +24,29 @@ class TweetsController < ApplicationController
   # POST /tweets
   # POST /tweets.json
   def create
-    @tweet = Tweet.new(tweet_params)
-
+    #We will have to use create because you will need @tweet to have an id 
+    # to be able to use it when we set up the association between tag and tweets through Tweet_tag 
+    # The association can not be formed without an id from @tweet as well as an id from Tag 
+    @tweet = Tweet.create(tweet_params)
+    #New array to hold each word of our tweet 
+    message_arr = Array.new 
+    message_arr = @tweet.message.split
+    message_arr.each_with_index do |word,index|
+      #If the first letter of the word has a '#' then it means that the word is a tag 
+     if word[0] == "#"
+        if Tag.pluck(:phrase).include?(word)
+            tag = Tag.find_by(phrase: word)
+        else 
+             tag = Tag.create(phrase: word)
+        end
+        tweet_tag = TweetTag.create(tweet_id: @tweet.id, tag_id: tag.id)
+        #message_arr[index] will give me the word itself 
+        message_arr[index] = "<a href='/tag_tweets?tag_id=#{tag.id}'>#{word}</a>"
+     end
+    end 
+    #After we are done parsing through the tweet and check if there is a #hashtag we will have to update the actual message 
+    @tweet.update(message: message_arr.join(" "))
+    
     respond_to do |format|
       if @tweet.save
         format.html { redirect_to @tweet, notice: 'Tweet was successfully created.' }
