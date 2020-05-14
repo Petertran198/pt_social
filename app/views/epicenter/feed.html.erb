@@ -1,6 +1,6 @@
 <h1>My Feed</h1>
 <% @following_tweet.each do |tweet| %>
     <div class="jumbotron">
-        <%=link_to tweet.user.username, show_user_path(id: tweet.user_id)  %>| <%= tweet.message %>
+        <%=link_to tweet.user.username, show_user_path(id: tweet.user_id)  %>| <%= tweet.message.html_safe %>
     </div>
 <% end %>

@@ -6,6 +6,17 @@
 <hr>
 
 
+<div class="row">
+    <% @tag.tweets.order(created_at: :desc).each do |tweet|  %>
+    <div class="jumbotron">
+        <p>
+            <%= "@#{tweet.user.username} "%> - <%= time_ago_in_words(tweet.created_at)%> <hr>
+            <%= tweet.message.html_safe %>
+        </p>
+     </div>   
+    <% end %>
+</div>
+
 
 
 
