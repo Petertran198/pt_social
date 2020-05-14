@@ -31,7 +31,7 @@ class TweetsController < ApplicationController
     @tweet =  get_tagged(@tweet)
 
     respond_to do |format|
-      if @tweet.save
+      if @tweet.save(:validates => false)
         format.html { redirect_to @tweet, notice: 'Tweet was successfully created.' }
         format.json { render :show, status: :created, location: @tweet }
       else
@@ -73,6 +73,6 @@ class TweetsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def tweet_params
-      params.require(:tweet).permit(:message, :user_id)
+      params.require(:tweet).permit(:message, :user_id, :link)
     end
 end
