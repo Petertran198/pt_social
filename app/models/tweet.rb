@@ -1,11 +1,12 @@
 class Tweet < ApplicationRecord
-    belongs_to :user
+    belongs_to :user 
     validates :message, presence: true
-    validates :message, length: {maximum: 140, too_long: "A tweet can only be 140 characters max..." }, on: :create 
-    has_many :tweet_tags
-    has_many :tags, through: :tweet_tags
-    before_validation :link_check, on: [:create]
-    after_validation :apply_link, on: [:create]
+    validates :message, length: { maximum: 140, too_long: "A tweet is only 140 max. Everybody knows that!"}
+    has_many :tweet_tags 
+    has_many :tags, through: :tweet_tags 
+    before_validation :link_check, on: [:create, :update] 
+    after_validation :apply_link, on: [:create, :update]
+
     def link_check
         # We will need a variable that starts off at false that only turns true when there is a link
         check = false 

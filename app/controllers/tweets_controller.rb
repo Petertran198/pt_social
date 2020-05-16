@@ -28,17 +28,15 @@ class TweetsController < ApplicationController
     # to be able to use it when we set up the association between tag and tweets through Tweet_tag 
     # The association can not be formed without an id from @tweet as well as an id from Tag 
     @tweet = Tweet.create(tweet_params)
-    @tweet =  get_tagged(@tweet)
 
-    respond_to do |format|
-      if @tweet.save(:validates => false)
-        format.html { redirect_to @tweet, notice: 'Tweet was successfully created.' }
-        format.json { render :show, status: :created, location: @tweet }
-      else
-        format.html { render :new }
-        format.json { render json: @tweet.errors, status: :unprocessable_entity }
-      end
+    @tweet =  get_tagged(@tweet)
+    @tweet.save(validate: false)
+    if @tweet.message.length == 0 
+      render :new
+    else
+      redirect_to tweet_path(@tweet.id)
     end
+    
   end
 
   # PATCH/PUT /tweets/1
