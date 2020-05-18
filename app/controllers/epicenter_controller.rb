@@ -33,7 +33,7 @@ class EpicenterController < ApplicationController
   end
 
   def all_users
-
+    @users = User.all
   end
 
 

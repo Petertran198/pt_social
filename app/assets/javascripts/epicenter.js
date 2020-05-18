@@ -9,7 +9,7 @@ $(document).on("turbolinks:load", function(){
         $(this).addClass('btn-danger');
     }, function(){
         $(this).html('Following');
-        $(this).removeClass('btn-danger')
+        $(this).removeClass('btn-danger');
         $(this).addClass('btn-primary');
     })
 })

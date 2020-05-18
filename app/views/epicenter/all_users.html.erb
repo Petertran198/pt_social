@@ -1,0 +1,22 @@
+<center>
+    <h1>All Users</h1>
+</center>
+
+<% @users.each do |user| %>
+    <div class="jumbotron" style="min-height: 200px;">
+        <div class="row">
+            <div class="col-md-4">
+                <% if !user.avatar.blank? %>
+                    <%# If the user does NOT have an avatar %>
+                    <%= image_tag(user.avatar.url, class: "avatar-size") %>
+                <% else %>
+                    <%# If the user does have an avatar %> 
+                    <%= image_tag('gravatar.jpg', class: "avatar-size") %>
+                <% end %>
+            </div>
+            <div class="col-md-8">
+            
+            </div>
+        </div><!-- end of -->
+    </div>
+<% end %>
