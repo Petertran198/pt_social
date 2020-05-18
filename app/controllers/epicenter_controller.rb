@@ -32,7 +32,9 @@ class EpicenterController < ApplicationController
     @tag = Tag.find(params[:tag_id])
   end
 
+  def all_users
 
+  end
 
 
 
