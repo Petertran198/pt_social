@@ -5,6 +5,9 @@ Rails.application.routes.draw do
   get 'unfollow', to: "epicenter#unfollow"  
   get 'tag_tweets', to: "epicenter#tag_tweets"
   get 'all_users', to: "epicenter#all_users"
+  # THis is going to show all the user followers 
+  get 'followers', to: "epicenter#followers"
+  get "followings", to: "epicenter#followings"
   resources :tweets
   devise_for :users
   root 'epicenter#feed'

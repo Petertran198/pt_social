@@ -35,7 +35,26 @@ class EpicenterController < ApplicationController
   def all_users
     @users = User.all
   end
+  
+  def followers 
 
+  end
+
+  #Followings are going to show us the followings of a certain user 
+  # @user is the owner of the page 
+  #What we are trying to do is iterate through each user and check if our main @user has their id inside our following array 
+  def followings 
+    @user = User.find(params[:id])
+    @users = []
+    #I want to check if @user following array has the person id in it 
+    #If the person's id is in @user.following than that person must be following @user
+    User.all.each do |person| 
+      #If this is true we want to push it into @users to iterate through it in the view page 
+      if @user.following.include?(person.id)
+        @users.push(person)
+      end
+    end
+  end
 
 
 end
