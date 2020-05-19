@@ -36,8 +36,17 @@ class EpicenterController < ApplicationController
     @users = User.all
   end
   
+  #Followers are going to show the followers of a certain user 
+  #That user is going to be called @user 
+  #We are trying to iterate through all the users and is if they have @user.id in their following array  
   def followers 
-
+    @user = User.find(params[:id])
+    @users = []
+    User.all.each do |person| 
+      if person.following.include?(@user.id)
+        @users.push(person)
+      end
+    end
   end
 
   #Followings are going to show us the followings of a certain user 

@@ -1,5 +1,7 @@
 <h1>@<%=@user.username%>'s Profile</h1>
-Followers | <%= link_to "Followings", followings_path(id: @user.id) %>
+<%= link_to "Followers", followers_path(id: @user.id)%> | 
+<%= link_to "Followings", followings_path(id: @user.id) %>
+
 <p>Bio: <%=@user.bio %></p>
 <p>Location: <%=@user.location %></p>
 <p>

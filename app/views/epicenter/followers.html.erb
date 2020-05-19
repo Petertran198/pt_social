@@ -1,1 +1,33 @@
 <h1>Followers</h1>
+<% @users.each do |user| %>
+    <div class="jumbotron" style="min-height: 200px;">
+        <div class="row">
+            <div class="col-md-4">
+                <% if !user.avatar.blank? %>
+                    <%# If the user does NOT have an avatar %>
+                    <%=link_to image_tag(user.avatar.url, class: "avatar-size"), show_user_path(id: user.id)  %>
+                <% else %>
+                    <%# If the user does have an avatar %> 
+                    <%= link_to image_tag('gravatar.jpg', class: "avatar-size"), show_user_path(id: user.id) %>
+                <% end %>
+            </div>
+            <div class="col-md-8">
+                <%=link_to show_user_path(id: user.id) do %>
+                    <h2>@<%= user.username %></h2>
+                    <p> <%= user.name.capitalize %></p>
+                <% end %>
+                <%# if I am  following that person,  show a link to unfollow %>
+                <% if current_user.following.include?(user.id) %>
+                    <%= link_to "Following", unfollow_path(id: user.id), class: "btn btn-primary", id:"unfollow_btn" %>
+                <% elsif current_user.id != user.id %>
+                    <%= link_to "Follow", now_following_path(id: user.id), class: "btn btn-primary" %>
+                <% end %>
+                <hr>
+                <p>
+                    Bio: <%= user.bio %>                    
+                </p>
+            </div>
+        </div><!-- end of -->
+    </div>
+<% end %>
+
