@@ -2,5 +2,9 @@
 <% @following_tweet.each do |tweet| %>
     <div class="jumbotron">
         <%=link_to tweet.user.username, show_user_path(id: tweet.user_id)  %>| <%= tweet.message.html_safe %>
+        <%# Show this customize message when tweet was created less then a day %>
+        - <%= time_ago_in_words(tweet.created_at) if Time.now - tweet.created_at < 86400 %>
+        <%# if tweet was created more than a day we will format it with the Month and day %>
+        <%= tweet.created_at.strftime('Created on %b %e') if  Time.now - tweet.created_at > 86400%>
     </div>
 <% end %>
