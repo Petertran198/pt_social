@@ -4,6 +4,7 @@ class Tweet < ApplicationRecord
     validates :message, length: { maximum: 140, too_long: "A tweet is only 140 max. Everybody knows that!"}
     has_many :tweet_tags 
     has_many :tags, through: :tweet_tags 
+    has_many :comments
     before_validation :link_check, on: [:create, :update] 
     after_validation :apply_link, on: [:create, :update]
 

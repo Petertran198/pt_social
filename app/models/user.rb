@@ -3,7 +3,8 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
-  has_many :tweets      
+  has_many :tweets  
+  has_many :comments    
   mount_uploader :avatar, AvatarUploader
   validates :username, presence: true, uniqueness: true
   serialize :following, Array

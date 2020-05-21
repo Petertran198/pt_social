@@ -8,7 +8,12 @@ Rails.application.routes.draw do
   # THis is going to show all the user followers 
   get 'followers', to: "epicenter#followers"
   get "followings", to: "epicenter#followings"
-  resources :tweets
+  
+  #This associates a tweet with the comments 
+  resources :tweets do 
+    resources :comments
+  end
+
   devise_for :users
   root 'epicenter#feed'
   

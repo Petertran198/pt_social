@@ -1,12 +1,18 @@
 class EpicenterController < ApplicationController
+  require 'will_paginate/array'
+
   def feed
     #This include tweeets from people we follow and our own tweets 
     @following_tweet = []
-    Tweet.all.each do |tweet| 
+    @tweets = Tweet.order('created_at DESC')
+    @tweets.each do |tweet| 
       if current_user.following.include?(tweet.user_id) || current_user.id == tweet.user_id 
         @following_tweet.push(tweet)
       end
     end
+    #For pagination
+    @following_tweet = @following_tweet.paginate(page: params[:page], per_page: 10)
+    @comment = Comment.new 
   end
 
   def show_user

@@ -6,5 +6,28 @@
         - <%= time_ago_in_words(tweet.created_at) if Time.now - tweet.created_at < 86400 %>
         <%# if tweet was created more than a day we will format it with the Month and day %>
         <%= tweet.created_at.strftime('Created on %b %e') if  Time.now - tweet.created_at > 86400%>
+
+        <% tweet.comments.each do |c| %>
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <%= c.post %>
+                    - <%= link_to  "@#{c.user.username}", show_user_path(id: c.user_id)  %>
+                    <br>
+                    <%= c.created_at.strftime('%b %e')%>
+
+                </div>
+            </div>
+        <% end %>
+        <!-- This is a form for comments -->
+        <%= form_for([tweet, @comment ]) do |f| %>
+            <%= f.text_field :post, class: "form-control", placeholder: "Comment" %>
+            <%= f.hidden_field :tweet_id, :value => tweet.id%>
+            <%= f.hidden_field :user_id, :value => current_user.id %>
+            <%= f.submit %>
+        <% end %>
     </div>
 <% end %>
+
+
+
+<%= will_paginate @following_tweet %>
